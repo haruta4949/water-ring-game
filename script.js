@@ -177,7 +177,6 @@ function checkWinCondition() {
 window.addEventListener('resize', () => {
     render.options.width = gameArea.clientWidth;
     render.options.height = gameArea.clientHeight;
-    Render.set
     // 境界線の位置も更新する必要があるが、複雑になるためここでは省略
     // シンプルなゲームなので、初期サイズで固定とするか、
     // ゲーム全体を再初期化する方が簡単かもしれません
