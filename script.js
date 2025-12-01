@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wallOptions = {
         isStatic: true,
         render: {
-            fillStyle: '#53a8b6' // Future blue for walls
+            fillStyle: '#4a69bd' // Accent Blue for walls
         }
     };
 
@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
         friction: 0.01,   // 摩擦
         density: 0.005,   // 密度
         render: {
-            fillStyle: 'rgba(0, 255, 255, 0.7)', // Semi-transparent cyan
-            strokeStyle: '#00ffff',
+            fillStyle: 'rgba(74, 105, 189, 0.7)', // Semi-transparent Accent Blue
+            strokeStyle: '#4a69bd', // Accent Blue
             lineWidth: 3
         },
         label: 'ring'
@@ -85,8 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const goalOptions = {
         isStatic: true,
         render: {
-            fillStyle: '#16213e', // Dark blue, like the container
-            strokeStyle: '#53a8b6', // Lighter blue outline
+            fillStyle: '#2c3e50', // Dark Blue-Gray, like game area background
+            strokeStyle: '#4a69bd', // Accent Blue outline
             lineWidth: 2
         },
         label: 'goal'
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (ringX > goalLeft && ringX < goalRight && ringY > goalTop) {
                     // リングをゴールの「中」に固定する
                     Body.setStatic(ringBody, true); // 動きを止める
-                    ringBody.render.fillStyle = '#00ff00'; // Bright green for success
+                    ringBody.render.fillStyle = '#4CAF50'; // Green for success, not neon
                     ringBody.render.strokeStyle = '#333';
                     ringBody.render.lineWidth = 1;
                     checkWinCondition();
