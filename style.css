@@ -1,0 +1,67 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #e0f2f7; /* Light blue background */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+#game-container {
+    background-color: #ffffff;
+    border: 10px solid #81d4fa; /* Blue border */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+h1 {
+    color: #0288d1; /* Darker blue for title */
+    margin-bottom: 20px;
+}
+
+#game-area {
+    width: 100%;
+    max-width: 500px; /* Adjust as needed */
+    height: 400px; /* Adjust as needed for game canvas */
+    background-color: #b3e5fc; /* Water background */
+    border: 5px solid #039be5; /* Water container border */
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden; /* Ensure elements don't spill out */
+    border-radius: 10px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block; /* Remove extra space below canvas */
+}
+
+#startButton {
+    background-color: #4fc3f7; /* Light blue button */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+#startButton:hover {
+    background-color: #29b6f6; /* Darker blue on hover */
+}
+
+#message-container {
+    margin-top: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #e53935; /* Red for messages */
+}
