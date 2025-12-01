@@ -35,7 +35,7 @@ const wallThickness = 20;
 const wallOptions = {
     isStatic: true,
     render: {
-        fillStyle: '#039be5' // 境界線の色
+        fillStyle: '#53a8b6' // Future blue for walls
     }
 };
 
@@ -50,18 +50,18 @@ World.add(world, [
     Bodies.rectangle(gameArea.clientWidth / 2, -wallThickness / 2, gameArea.clientWidth, wallThickness, wallOptions)
 ]);
 
-// リングの作成
+// リング（量子）の作成
 const rings = [];
 const numRings = 5;
 const ringRadius = 20;
 const ringOptions = {
     restitution: 0.8, // 反発係数
     friction: 0.01,   // 摩擦
-    density: 0.005,   // 密度 (水に浮くように軽くする)
+    density: 0.005,   // 密度
     render: {
-        fillStyle: '#ffeb3b', // 黄色いリング
-        strokeStyle: '#fbc02d',
-        lineWidth: 2
+        fillStyle: 'rgba(0, 255, 255, 0.7)', // Semi-transparent cyan
+        strokeStyle: '#00ffff',
+        lineWidth: 3
     },
     label: 'ring'
 };
@@ -77,14 +77,16 @@ for (let i = 0; i < numRings; i++) {
     World.add(world, ring);
 }
 
-// ゴール（杭）の作成
+// ゴール（量子チップ）の作成
 const goals = [];
-const goalWidth = 10;
-const goalHeight = 50;
+const goalWidth = 15; // A bit wider
+const goalHeight = 60;
 const goalOptions = {
     isStatic: true,
     render: {
-        fillStyle: '#795548' // 茶色の杭
+        fillStyle: '#16213e', // Dark blue, like the container
+        strokeStyle: '#53a8b6', // Lighter blue outline
+        lineWidth: 2
     },
     label: 'goal'
 };
@@ -92,7 +94,7 @@ const goalOptions = {
 const numGoals = 3; // ゴールの数
 for (let i = 0; i < numGoals; i++) {
     const goalX = (gameArea.clientWidth / (numGoals + 1)) * (i + 1);
-    const goalY = gameArea.clientHeight - goalHeight / 2 - wallThickness; // 下の壁の上に配置
+    const goalY = gameArea.clientHeight - goalHeight / 2 - 10; // Positioned a bit up from the bottom
     const goal = Bodies.rectangle(goalX, goalY, goalWidth, goalHeight, goalOptions);
     goals.push(goal);
     World.add(world, goal);
@@ -103,16 +105,17 @@ for (let i = 0; i < numGoals; i++) {
 Engine.run(engine);
 Render.run(render);
 
-// 水流を発生させる関数
+// 量子ジェットを発生させる関数
 function generateWaterCurrent() {
-    // 画面中央下から上に向かってランダムな水流を発生させる
-    const forceMagnitude = 0.05; // 水流の強さ
-    const forceAngle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI / 4; // 上向き±45度の範囲
+    const forceMagnitude = 0.05; 
+    const forceAngle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI / 4;
 
     rings.forEach(ring => {
-        const forceX = forceMagnitude * Math.cos(forceAngle);
-        const forceY = forceMagnitude * Math.sin(forceAngle);
-        Body.applyForce(ring, ring.position, { x: forceX, y: forceY });
+        if (!ring.isStatic) { // Only apply force to non-static rings
+            const forceX = forceMagnitude * Math.cos(forceAngle);
+            const forceY = forceMagnitude * Math.sin(forceAngle);
+            Body.applyForce(ring, ring.position, { x: forceX, y: forceY });
+        }
     });
 }
 
@@ -138,17 +141,20 @@ Events.on(engine, 'collisionStart', function(event) {
             goalBody = bodyA;
         }
 
-        if (ringBody && goalBody) {
-            // リングがゴールに入ったと判定
-            // 簡単のために、リングがゴールのX座標範囲内に入ったら成功とする
-            const goalLeft = goalBody.position.x - goalBody.bounds.width / 2;
-            const goalRight = goalBody.position.x + goalBody.bounds.width / 2;
+        if (ringBody && goalBody && !ringBody.isStatic) { // Ensure we don't re-process a static ring
+            const goalLeft = goalBody.position.x - (goalWidth / 2);
+            const goalRight = goalBody.position.x + (goalWidth / 2);
             const ringX = ringBody.position.x;
+            const ringY = ringBody.position.y;
+            const goalTop = goalBody.position.y - (goalHeight / 2);
 
-            if (ringX > goalLeft && ringX < goalRight) {
+            // Check if the ring is centered on the goal and above a certain point
+            if (ringX > goalLeft && ringX < goalRight && ringY > goalTop) {
                 // リングをゴールの「中」に固定する
                 Body.setStatic(ringBody, true); // 動きを止める
-                ringBody.render.fillStyle = '#4caf50'; // 成功したリングの色
+                ringBody.render.fillStyle = '#00ff00'; // Bright green for success
+                ringBody.render.strokeStyle = '#333';
+                ringBody.render.lineWidth = 1;
                 checkWinCondition();
             }
         }
@@ -161,10 +167,11 @@ function checkWinCondition() {
     const allRingsInGoals = rings.every(ring => ring.isStatic);
 
     if (allRingsInGoals) {
-        messageContainer.textContent = 'ゲームクリア！おめでとう！';
+        messageContainer.textContent = '全量子ビット安定！おめでとう！';
         startButton.disabled = true; // ゲームクリア後ボタンを無効化
     }
 }
+
 
 // 画面サイズ変更時のリサイズ処理 (オプション)
 window.addEventListener('resize', () => {

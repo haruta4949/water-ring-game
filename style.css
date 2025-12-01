@@ -4,64 +4,70 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #e0f2f7; /* Light blue background */
-    font-family: 'Arial', sans-serif;
-    color: #333;
+    background-color: #1a1a2e; /* Dark blue-purple background */
+    font-family: 'Orbitron', 'Arial', sans-serif; /* Futuristic font */
+    color: #e0e0e0;
 }
 
 #game-container {
-    background-color: #ffffff;
-    border: 10px solid #81d4fa; /* Blue border */
+    background-color: #16213e; /* Dark blue container */
+    border: 5px solid #0f3460; /* Darker blue border */
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 30px rgba(79, 195, 247, 0.4); /* Glowing blue shadow */
     text-align: center;
     width: 90%;
     max-width: 600px;
 }
 
 h1 {
-    color: #0288d1; /* Darker blue for title */
+    color: #e94560; /* Bright red/pink for title */
     margin-bottom: 20px;
+    text-shadow: 0 0 10px #e94560;
 }
 
 #game-area {
     width: 100%;
-    max-width: 500px; /* Adjust as needed */
-    height: 400px; /* Adjust as needed for game canvas */
-    background-color: #b3e5fc; /* Water background */
-    border: 5px solid #039be5; /* Water container border */
+    max-width: 500px;
+    height: 400px;
+    background-color: #0f3460; /* Dark blue game area */
+    border: 2px solid #53a8b6; /* Lighter blue border */
     margin: 20px auto;
     position: relative;
-    overflow: hidden; /* Ensure elements don't spill out */
+    overflow: hidden;
     border-radius: 10px;
 }
 
 canvas {
     width: 100%;
     height: 100%;
-    display: block; /* Remove extra space below canvas */
+    display: block;
 }
 
 #startButton {
-    background-color: #4fc3f7; /* Light blue button */
-    color: white;
-    border: none;
+    background-color: #e94560; /* Bright red/pink button */
+    color: #ffffff;
+    border: 2px solid #e94560;
     padding: 15px 30px;
     font-size: 1.2em;
+    font-family: 'Orbitron', 'Arial', sans-serif;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     margin-top: 20px;
+    text-shadow: 0 0 5px #ffffff;
 }
 
 #startButton:hover {
-    background-color: #29b6f6; /* Darker blue on hover */
+    background-color: #16213e; /* Dark blue on hover */
+    color: #e94560;
+    box-shadow: 0 0 20px #e94560;
 }
 
 #message-container {
     margin-top: 20px;
     font-size: 1.5em;
     font-weight: bold;
-    color: #e53935; /* Red for messages */
+    color: #53a8b6; /* Bright cyan for messages */
+    text-shadow: 0 0 10px #53a8b6;
 }
